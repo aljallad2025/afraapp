@@ -7,11 +7,16 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install --legacy-peer-deps
-      - name: Install Expo CLI
-        script: npm install -g expo-cli eas-cli
+      - name: Install EAS CLI
+        script: npm install -g eas-cli
+      - name: Setup Expo
+        script: |
+          npx expo install --fix
+      - name: Prebuild
+        script: npx expo prebuild --platform android --clean
       - name: Build APK
         script: |
-          npx expo prebuild --platform android --no-install
-          cd android && ./gradlew assembleRelease
+          cd android
+          ./gradlew assembleDebug
     artifacts:
-      - android/app/build/outputs/apk/release/*.apk
+      - android/app/build/outputs/apk/debug/*.apk
