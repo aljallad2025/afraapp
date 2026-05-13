@@ -1,7 +1,7 @@
 workflows:
   react-native-android:
     name: AFRA Booking Android
-    max_build_duration: 60
+    max_build_duration: 120
     environment:
       node: 18
     scripts:
@@ -9,16 +9,9 @@ workflows:
         script: npm install --legacy-peer-deps
       - name: Expo Prebuild
         script: npx expo prebuild --platform android --clean --no-install
-      - name: Create assets folder
-        script: mkdir -p android/app/src/main/assets
-      - name: Bundle JS
+      - name: Create bundle
         script: |
-          node node_modules/react-native/local-cli/cli.js bundle \
-            --platform android \
-            --dev false \
-            --entry-file index.js \
-            --bundle-output android/app/src/main/assets/index.android.bundle \
-            --assets-dest android/app/src/main/res/ || \
+          mkdir -p android/app/src/main/assets
           npx expo export:embed \
             --platform android \
             --entry-file index.js \
@@ -28,6 +21,6 @@ workflows:
         script: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease -x createBundleReleaseJsAndAssets
+          ./gradlew assembleDebug
     artifacts:
-      - android/app/build/outputs/apk/release/*.apk
+      - android/app/build/outputs/apk/debug/*.apk
