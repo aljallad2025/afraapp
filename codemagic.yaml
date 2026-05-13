@@ -7,16 +7,27 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install --legacy-peer-deps
-      - name: Install EAS CLI
-        script: npm install -g eas-cli
       - name: Expo Prebuild
         script: npx expo prebuild --platform android --clean --no-install
+      - name: Create assets folder
+        script: mkdir -p android/app/src/main/assets
+      - name: Bundle JS
+        script: |
+          node node_modules/react-native/local-cli/cli.js bundle \
+            --platform android \
+            --dev false \
+            --entry-file index.js \
+            --bundle-output android/app/src/main/assets/index.android.bundle \
+            --assets-dest android/app/src/main/res/ || \
+          npx expo export:embed \
+            --platform android \
+            --entry-file index.js \
+            --bundle-output android/app/src/main/assets/index.android.bundle \
+            --assets-dest android/app/src/main/res/
       - name: Build APK
         script: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease -x bundleReleaseJsAndAssets
-          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease -x createBundleReleaseJsAndAssets
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
