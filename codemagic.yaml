@@ -9,14 +9,14 @@ workflows:
         script: npm install --legacy-peer-deps
       - name: Install EAS CLI
         script: npm install -g eas-cli
-      - name: Setup Expo
-        script: |
-          npx expo install --fix
-      - name: Prebuild
-        script: npx expo prebuild --platform android --clean
+      - name: Expo Prebuild
+        script: npx expo prebuild --platform android --clean --no-install
       - name: Build APK
         script: |
           cd android
-          ./gradlew assembleDebug
+          chmod +x gradlew
+          ./gradlew assembleRelease -x bundleReleaseJsAndAssets
+          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+          ./gradlew assembleRelease
     artifacts:
-      - android/app/build/outputs/apk/debug/*.apk
+      - android/app/build/outputs/apk/release/*.apk
