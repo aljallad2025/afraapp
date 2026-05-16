@@ -19,9 +19,9 @@ export default function HomeScreen({ navigation }) {
 
   const cats = [
     { icon:"✈️", label:"Flights", screen:"Search" },
-    { icon:"🏨", label:"Hotels", screen:null },
-    { icon:"📦", label:"Packages", screen:null },
-    { icon:"🚗", label:"Cars", screen:null },
+    { icon:"🏨", label:"Hotels", screen:"Hotels" },
+    { icon:"📦", label:"Packages", screen:"Offers" },
+    { icon:"🚗", label:"Cars", screen:"Attractions" },
   ];
   const cats2 = [
     { icon:"🗺️", label:"Attractions" },
