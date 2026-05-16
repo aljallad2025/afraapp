@@ -9,14 +9,14 @@ export default function ProfileScreen({ navigation }) {
     { label:"Points", value:"1,850" },
   ];
   const menu = [
-    { icon:"🎫", label:"My Bookings" },
-    { icon:"❤️", label:"Saved Flights" },
-    { icon:"🔔", label:"Notifications" },
-    { icon:"💳", label:"Payment Methods" },
-    { icon:"🌐", label:"Language" },
-    { icon:"🔒", label:"Privacy & Security" },
-    { icon:"❓", label:"Help & Support" },
-    { icon:"⭐", label:"Rate the App" },
+    { icon:"🎫", label:"My Bookings", screen:"MyTrips" },
+    { icon:"❤️", label:"Saved Flights", screen:"MyTrips" },
+    { icon:"🔔", label:"Notifications", screen:null },
+    { icon:"💳", label:"Payment Methods", screen:null },
+    { icon:"🌐", label:"Language", screen:null },
+    { icon:"🔒", label:"Privacy & Security", screen:null },
+    { icon:"❓", label:"Help & Support", screen:null },
+    { icon:"⭐", label:"Rate the App", screen:null },
   ];
 
   return (
@@ -56,7 +56,7 @@ export default function ProfileScreen({ navigation }) {
         <Text style={s.secTitle}>Account</Text>
         <View style={s.menuCard}>
           {menu.map((m,i) => (
-            <TouchableOpacity key={i} style={[s.menuItem, i<menu.length-1 && {borderBottomWidth:0.5,borderBottomColor:colors.border}]}>
+            <TouchableOpacity key={i} style={[s.menuItem, i<menu.length-1 && {borderBottomWidth:0.5,borderBottomColor:colors.border}]} onPress={() => m.screen && navigation.navigate(m.screen)}>
               <Text style={{fontSize:18,marginRight:10}}>{m.icon}</Text>
               <Text style={{flex:1,fontSize:13,color:colors.text,fontWeight:"500"}}>{m.label}</Text>
               <Text style={{color:"#ccc",fontSize:16}}>›</Text>
