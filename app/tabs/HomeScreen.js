@@ -61,10 +61,10 @@ export default function HomeScreen({ navigation }) {
         {/* Secondary cats */}
         <View style={s.cat2Row}>
           {cats2.map((c,i) => (
-            <View key={i} style={s.cat2Item}>
+            <TouchableOpacity key={i} style={s.cat2Item} onPress={() => c.screen && navigation.navigate(c.screen)}>
               <View style={s.cat2Icon}><Text style={{fontSize:16}}>{c.icon}</Text></View>
               <Text style={s.cat2Lbl}>{c.label}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
         {/* Feature btns */}
