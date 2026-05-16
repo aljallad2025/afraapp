@@ -71,6 +71,8 @@ export default function App() {
         <Stack.Screen name="Payment" component={PaymentScreen}/>
         <Stack.Screen name="Confirmation" component={ConfirmationScreen}/>
         <Stack.Screen name="Attractions" component={AttractionsScreen}/>
+        <Stack.Screen name="Hotels" component={HotelsScreen}/>
+        <Stack.Screen name="Offers" component={OffersScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
